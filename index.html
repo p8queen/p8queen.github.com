@@ -1,43 +1,120 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia-Style Page</title>
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #202122;
+            margin: 0;
+            padding: 0;
+        }
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+        #content {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    <title>P8queen at GitHub by p8queen</title>
-  </head>
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
 
-  <body>
+        h2 {
+            font-size: 1.5em;
+            margin-top: 20px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        h3 {
+            margin: 0px;
+            padding: 0px;
+        }
+        p {
+            margin: 0 0 10px 0;
+        }
 
-    <header>
-      <div class="container">
-        <h1>P8queen at GitHub</h1>
-        <h2></h2>
+        ul {
+            list-style-type: disc;
+            margin: 10px 0 10px 20px;
+        }
 
-        <section id="downloads">
-          <a href="https://github.com/p8queen" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
 
-    <div class="container">
-      <section id="main_content">
-        <h3>Welcome to my GitHub Pages.</h3>
+        a:hover {
+            text-decoration: underline;
+        }
 
-<p>Aquí comparto el código que voy generando. </p>
+        .pasaje {
+            font-weight: bold;
+            color: #333;
+        }
 
-<ul>
-<li><a href="http://p8queen.github.com/sinatra-mongoid">Sinatra MongoID</a></li>
-<li><a href="http://p8queen.github.com/Cola-de-Mensajes">Cola de Mensajes en C</a></li>
-<li><a href="http://p8queen.github.com/Memoria-Compartida">Memoria Compartida y Semáforos en C</a></li>
-</ul><p>Copialo, distribuílo, vendelo, etc. Es tuyo también. </p>
-      </section>
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Estudios Biblicos Wiki</h1>
+        <p>Bienvenido a esta página. Dios te bendiga y te ayude a conocer más de la doctrina cristiana. 
+            Aquí comparto mis estudios bíblicos e investgaciones</p>
+
+        <h2>Indice</h2>
+        <ul>
+            <li>Diezmo: Que no te roben -> <a href="#diezmo">Ver</a></li>
+            <li>¿ Sola Scriptura ? El Gran Engaño -> <a href="#sola-scriptura">Ver</a></li>
+            <li>Responsive layout for all devices</li>
+        </ul>
+
+        <div id="diezmo"></div>
+        
+        <div id="sola-scriptura"></div>
+
+        <footer>
+            <p>Example page inspired by Wikipedia. Not affiliated with Wikipedia.</p>
+        </footer>
     </div>
 
-    
-  </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // parse to markdown to html id=md
+        
+        window.onload = function() {
+            console.log('onload');
+            // get text from a file, fetch and show in div id output
+            const files = ['diezmo.md', 'sola-scriptura.md'];
+            files.forEach(file => {
+                fetch(file).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                }).then(text => {
+                    console.log(text);  
+                    document.getElementById(file.replace('.md', '')).innerHTML = marked.parse(text);
+                }).catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+            });
+            
+            }  
+    </script>
+</body>
 </html>
